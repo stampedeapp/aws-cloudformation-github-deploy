@@ -36,13 +36,26 @@ export function parseNumber(s: string): number | undefined {
   return parseInt(s) || undefined
 }
 
+function convertParameters(parameters: Map<string, string>): Parameter[] {
+  return [...parameters.keys()].map(key => {
+    return {
+      ParameterKey: key,
+      ParameterValue: parameters.get(key)
+    }
+  })
+}
+
 export function parseParameters(parameterOverrides: string): Parameter[] {
   try {
     const path = new URL(parameterOverrides)
     const rawParameters = fs.readFileSync(path, 'utf-8')
 
-    return JSON.parse(rawParameters)
-  } catch (err) {
+    const params = JSON.parse(rawParameters)
+    if (params.Parameters) {
+      return convertParameters(params.Parameters)
+    }
+    return params
+  } catch (err: any) {
     if (err.code !== 'ERR_INVALID_URL') {
       throw err
     }
@@ -55,11 +68,5 @@ export function parseParameters(parameterOverrides: string): Parameter[] {
     param = !param ? value : [param, value].join(',')
     parameters.set(key, param)
   })
-
-  return [...parameters.keys()].map(key => {
-    return {
-      ParameterKey: key,
-      ParameterValue: parameters.get(key)
-    }
-  })
+  return convertParameters(parameters)
 }
