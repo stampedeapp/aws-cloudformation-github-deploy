@@ -55,7 +55,7 @@ export function parseParameters(parameterOverrides: string): Parameter[] {
       return convertParameters(params.Parameters)
     }
     return params
-  } catch (err: any) {
+  } catch (err) {
     if (err.code !== 'ERR_INVALID_URL') {
       throw err
     }
