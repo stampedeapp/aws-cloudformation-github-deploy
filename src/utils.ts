@@ -1,4 +1,5 @@
 import * as aws from 'aws-sdk'
+import { info } from '@actions/core'
 import * as fs from 'fs'
 import { Parameter } from 'aws-sdk/clients/cloudformation'
 import { load } from 'js-yaml'
@@ -54,6 +55,7 @@ export function parseParameters(
 ): Parameter[] {
   const parameters = new Map<string, string>()
   if (parametersFile) {
+    info(`Loading parameters from ${parametersFile}`)
     const path = new URL(parametersFile)
     const file = JSON.parse(fs.readFileSync(path, 'utf8'))
     Object.entries(file.Parameters).forEach(([key, value]) => {
