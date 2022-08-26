@@ -1,5 +1,4 @@
 import { parseTags, isUrl, parseParameters } from '../src/utils'
-import * as path from 'path'
 
 jest.mock('@actions/core')
 
@@ -85,8 +84,7 @@ describe('Parse Parameters', () => {
   })
 
   test('returns parameters list from file', async () => {
-    const filename = 'file://' + path.join(__dirname, 'params.test.json')
-    const json = parseParameters('', filename)
+    const json = parseParameters('', '../__tests__/params.test.json')
     expect(json).toEqual([
       {
         ParameterKey: 'MyParam1',
@@ -100,13 +98,14 @@ describe('Parse Parameters', () => {
   })
 
   test('throws error if file is not found', async () => {
-    const filename = 'file://' + path.join(__dirname, 'params.tezt.json')
-    expect(() => parseParameters('', filename)).toThrow()
+    expect(() =>
+      parseParameters('', '__tests__/params-invalid.tezt.json')
+    ).toThrow()
   })
 
   test('throws error if json in file cannot be parsed', async () => {
-    const filename =
-      'file://' + path.join(__dirname, 'params-invalid.test.json')
-    expect(() => parseParameters('', filename)).toThrow()
+    expect(() =>
+      parseParameters('', '__tests__/params-invalid.test.json')
+    ).toThrow()
   })
 })

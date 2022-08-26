@@ -1,8 +1,11 @@
 import * as aws from 'aws-sdk'
-import { info } from '@actions/core'
+import * as path from 'path'
+import { debug } from '@actions/core'
 import * as fs from 'fs'
 import { Parameter } from 'aws-sdk/clients/cloudformation'
 import { load } from 'js-yaml'
+
+const { GITHUB_WORKSPACE = __dirname } = process.env
 
 export function isUrl(s: string): boolean {
   let url
@@ -55,9 +58,11 @@ export function parseParameters(
 ): Parameter[] {
   const parameters = new Map<string, string>()
   if (parametersFile) {
-    info(`Loading parameters from ${parametersFile}`)
-    const path = new URL(parametersFile)
-    const file = JSON.parse(fs.readFileSync(path, 'utf8'))
+    debug(`Loading parameters from ${parametersFile}`)
+    const paramsFilePath = path.isAbsolute(parametersFile)
+      ? parametersFile
+      : path.join(GITHUB_WORKSPACE, parametersFile)
+    const file = JSON.parse(fs.readFileSync(paramsFilePath, 'utf8'))
     Object.entries(file.Parameters).forEach(([key, value]) => {
       parameters.set(key, value as string)
     })
