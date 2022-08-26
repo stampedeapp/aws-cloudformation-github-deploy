@@ -39,9 +39,11 @@ export function parseNumber(s: string): number | undefined {
 
 function convertParameters(parameters: Map<string, string>): Parameter[] {
   return [...parameters.keys()].map(key => {
+    const value = parameters.get(key)
+    const parameterValue = Array.isArray(value) ? value.join(',') : value
     return {
       ParameterKey: key,
-      ParameterValue: parameters.get(key)
+      ParameterValue: parameterValue
     }
   })
 }
@@ -52,13 +54,15 @@ export function parseParameters(
 ): Parameter[] {
   const parameters = new Map<string, string>()
   if (parametersFile) {
-    const path = new URL(parameterOverrides)
-    const parameters = JSON.parse(fs.readFileSync(path, 'utf8'))
-    Object.entries(parameters.Parameters).forEach(([key, value]) => {
-      parameters.set(key, value)
+    const path = new URL(parametersFile)
+    const file = JSON.parse(fs.readFileSync(path, 'utf8'))
+    Object.entries(file.Parameters).forEach(([key, value]) => {
+      parameters.set(key, value as string)
     })
   }
   const params = load(parameterOverrides) as Record<string, string>
+  if (!params) return convertParameters(parameters)
+
   Object.entries(params).forEach(([key, value]) => {
     parameters.set(key, value)
   })

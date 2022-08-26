@@ -62,7 +62,9 @@ describe('Deploy CloudFormation Stack', () => {
       name: 'MockStack',
       template: 'template.yaml',
       capabilities: 'CAPABILITY_IAM',
-      'parameter-overrides': 'AdminEmail=no-reply@amazon.com',
+      'parameter-overrides': `
+        AdminEmail: no-reply@amazon.com
+      `,
       'no-fail-on-empty-changeset': '0',
       'disable-rollback': '0',
       'timeout-in-minutes': '',
@@ -281,7 +283,7 @@ describe('Deploy CloudFormation Stack', () => {
       template:
         'https://s3.amazonaws.com/templates/myTemplate.template?versionId=123ab1cdeKdOW5IH4GAcYbEngcpTJTDW',
       capabilities: 'CAPABILITY_IAM',
-      'parameter-overrides': 'AdminEmail=no-reply@amazon.com',
+      'parameter-overrides': 'AdminEmail: no-reply@amazon.com',
       'no-fail-on-empty-changeset': '1'
     }
 
@@ -321,7 +323,7 @@ describe('Deploy CloudFormation Stack', () => {
       template:
         'https://s3.amazonaws.com/templates/myTemplate.template?versionId=123ab1cdeKdOW5IH4GAcYbEngcpTJTDW',
       capabilities: 'CAPABILITY_IAM',
-      'parameter-overrides': 'AdminEmail=no-reply@amazon.com',
+      'parameter-overrides': 'AdminEmail: no-reply@amazon.com',
       'no-fail-on-empty-changeset': '1',
       'termination-protection': '1'
     }
@@ -362,7 +364,7 @@ describe('Deploy CloudFormation Stack', () => {
       template:
         'https://s3.amazonaws.com/templates/myTemplate.template?versionId=123ab1cdeKdOW5IH4GAcYbEngcpTJTDW',
       capabilities: 'CAPABILITY_IAM',
-      'parameter-overrides': 'AdminEmail=no-reply@amazon.com',
+      'parameter-overrides': 'AdminEmail: no-reply@amazon.com',
       'no-fail-on-empty-changeset': '1',
       'disable-rollback': '1'
     }
@@ -403,7 +405,7 @@ describe('Deploy CloudFormation Stack', () => {
       template:
         'https://s3.amazonaws.com/templates/myTemplate.template?versionId=123ab1cdeKdOW5IH4GAcYbEngcpTJTDW',
       capabilities: 'CAPABILITY_IAM',
-      'parameter-overrides': 'AdminEmail=no-reply@amazon.com',
+      'parameter-overrides': 'AdminEmail: no-reply@amazon.com',
       'no-fail-on-empty-changeset': '1',
       'notification-arns':
         'arn:aws:sns:us-east-2:123456789012:MyTopic,arn:aws:sns:us-east-2:123456789012:MyTopic2'
@@ -449,7 +451,7 @@ describe('Deploy CloudFormation Stack', () => {
       template:
         'https://s3.amazonaws.com/templates/myTemplate.template?versionId=123ab1cdeKdOW5IH4GAcYbEngcpTJTDW',
       capabilities: 'CAPABILITY_IAM',
-      'parameter-overrides': 'AdminEmail=no-reply@amazon.com',
+      'parameter-overrides': 'AdminEmail: no-reply@amazon.com',
       'no-fail-on-empty-changeset': '1',
       'role-arn': 'arn:aws:iam::123456789012:role/my-role'
     }
@@ -491,7 +493,7 @@ describe('Deploy CloudFormation Stack', () => {
       template:
         'https://s3.amazonaws.com/templates/myTemplate.template?versionId=123ab1cdeKdOW5IH4GAcYbEngcpTJTDW',
       capabilities: 'CAPABILITY_IAM',
-      'parameter-overrides': 'AdminEmail=no-reply@amazon.com',
+      'parameter-overrides': 'AdminEmail: no-reply@amazon.com',
       'no-fail-on-empty-changeset': '1',
       tags: '[{"Key":"Test","Value":"Value"}]'
     }
@@ -533,7 +535,7 @@ describe('Deploy CloudFormation Stack', () => {
       template:
         'https://s3.amazonaws.com/templates/myTemplate.template?versionId=123ab1cdeKdOW5IH4GAcYbEngcpTJTDW',
       capabilities: 'CAPABILITY_IAM',
-      'parameter-overrides': 'AdminEmail=no-reply@amazon.com',
+      'parameter-overrides': 'AdminEmail: no-reply@amazon.com',
       'no-fail-on-empty-changeset': '1',
       'timeout-in-minutes': '10'
     }
@@ -632,7 +634,7 @@ describe('Deploy CloudFormation Stack', () => {
       name: 'MockStack',
       template: 'template.yaml',
       capabilities: 'CAPABILITY_IAM',
-      'parameter-overrides': 'AdminEmail=no-reply@amazon.com',
+      'parameter-overrides': 'AdminEmail: no-reply@amazon.com',
       'no-execute-changeset': '1'
     }
 
@@ -788,7 +790,7 @@ describe('Deploy CloudFormation Stack', () => {
       name: 'MockStack',
       template: 'template.yaml',
       capabilities: 'CAPABILITY_IAM',
-      'parameter-overrides': 'AdminEmail=no-reply@amazon.com',
+      'parameter-overrides': 'AdminEmail: no-reply@amazon.com',
       'no-fail-on-empty-changeset': '1'
     }
 
@@ -894,7 +896,7 @@ describe('Deploy CloudFormation Stack', () => {
       name: 'MockStack',
       template: 'template.yaml',
       capabilities: 'CAPABILITY_IAM',
-      'parameter-overrides': 'AdminEmail=no-reply@amazon.com',
+      'parameter-overrides': 'AdminEmail: no-reply@amazon.com',
       'no-fail-on-empty-changeset': '1',
       'no-delete-failed-changeset': '1'
     }
@@ -998,7 +1000,7 @@ describe('Deploy CloudFormation Stack', () => {
       name: 'MockStack',
       template: 'template.yaml',
       capabilities: 'CAPABILITY_IAM',
-      'parameter-overrides': 'AdminEmail=no-reply@amazon.com',
+      'parameter-overrides': 'AdminEmail: no-reply@amazon.com',
       'no-delete-failed-changeset': '1'
     }
 
@@ -1096,7 +1098,10 @@ describe('Deploy CloudFormation Stack', () => {
       name: 'MockStack',
       template: 'template.yaml',
       capabilities: 'CAPABILITY_IAM',
-      'parameter-overrides': 'AdminEmail=no-reply@amazon.com',
+      'parameter-overrides': `
+        AdminEmail:
+          no-reply@amazon.com
+      `,
       'no-fail-on-empty-changeset': '1'
     }
 

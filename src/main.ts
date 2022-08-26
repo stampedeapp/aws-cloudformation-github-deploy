@@ -116,8 +116,8 @@ export async function run(): Promise<void> {
 
     if (parameterOverrides) {
       params.Parameters = parseParameters(
-        parameterOverrides.trim(),
-        parametersFile.trim()
+        parameterOverrides?.trim(),
+        parametersFile?.trim()
       )
     }
 
