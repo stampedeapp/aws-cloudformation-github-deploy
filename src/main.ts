@@ -119,6 +119,7 @@ export async function run(): Promise<void> {
         parameterOverrides?.trim(),
         parametersFile?.trim()
       )
+      core.debug(`Parameters: ${JSON.stringify(params.Parameters)}`)
     }
 
     const stackId = await deployStack(
