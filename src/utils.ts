@@ -44,7 +44,9 @@ export function parseNumber(s: string): number | undefined {
 function convertParameters(parameters: Map<string, string>): Parameter[] {
   return [...parameters.keys()].map(key => {
     const value = parameters.get(key)
-    const parameterValue = Array.isArray(value) ? value.join(',') : value
+    const parameterValue = Array.isArray(value)
+      ? value.join(',')
+      : value?.toString()
     return {
       ParameterKey: key,
       ParameterValue: parameterValue
