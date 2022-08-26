@@ -40,6 +40,9 @@ export async function run(): Promise<void> {
     const capabilities = core.getInput('capabilities', {
       required: false
     })
+    const parametersFile = core.getInput('parameters-file', {
+      required: false
+    })
     const parameterOverrides = core.getInput('parameter-overrides', {
       required: false
     })
@@ -112,7 +115,10 @@ export async function run(): Promise<void> {
     }
 
     if (parameterOverrides) {
-      params.Parameters = parseParameters(parameterOverrides.trim())
+      params.Parameters = parseParameters(
+        parameterOverrides.trim(),
+        parametersFile.trim()
+      )
     }
 
     const stackId = await deployStack(

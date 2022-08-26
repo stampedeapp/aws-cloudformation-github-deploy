@@ -14,6 +14,9 @@ inputs:
     description: "The comma-delimited list of stack template capabilities to acknowledge. Defaults to 'CAPABILITY_IAM'"
     required: false
     default: "CAPABILITY_IAM"
+  parameters-file:
+    description: "The path to the JSON file containing the parameters to pass to the CloudFormation template"
+    required: false
   parameter-overrides:
     description: 'The parameters to override in the stack inputs. You can pass a comma-delimited list or a file URL. Comma-delimited list has each entry formatted as <ParameterName>=<ParameterValue>. A JSON file can be a local file with a "file://" prefix or remote URL (e.g. file://[github.workspace]/variables.json or http://example.com/variables.json). A local file needs to be specified with an absolute path to it. The file should look like: [ { "ParameterKey": "KeyPairName", "ParameterValue": "MyKey" }]'
     required: false

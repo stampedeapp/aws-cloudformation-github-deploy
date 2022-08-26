@@ -1,6 +1,7 @@
 import * as aws from 'aws-sdk'
 import * as fs from 'fs'
 import { Parameter } from 'aws-sdk/clients/cloudformation'
+import { load } from 'js-yaml'
 
 export function isUrl(s: string): boolean {
   let url
@@ -45,28 +46,21 @@ function convertParameters(parameters: Map<string, string>): Parameter[] {
   })
 }
 
-export function parseParameters(parameterOverrides: string): Parameter[] {
-  try {
-    const path = new URL(parameterOverrides)
-    const rawParameters = fs.readFileSync(path, 'utf-8')
-
-    const params = JSON.parse(rawParameters)
-    if (params.Parameters) {
-      return convertParameters(params.Parameters)
-    }
-    return params
-  } catch (err) {
-    if (err.code !== 'ERR_INVALID_URL') {
-      throw err
-    }
-  }
-
+export function parseParameters(
+  parameterOverrides: string,
+  parametersFile: string
+): Parameter[] {
   const parameters = new Map<string, string>()
-  parameterOverrides.split(',').forEach(parameter => {
-    const [key, value] = parameter.trim().split('=')
-    let param = parameters.get(key)
-    param = !param ? value : [param, value].join(',')
-    parameters.set(key, param)
+  if (parametersFile) {
+    const path = new URL(parameterOverrides)
+    const parameters = JSON.parse(fs.readFileSync(path, 'utf8'))
+    Object.entries(parameters.Parameters).forEach(([key, value]) => {
+      parameters.set(key, value)
+    })
+  }
+  const params = load(parameterOverrides) as Record<string, string>
+  Object.entries(params).forEach(([key, value]) => {
+    parameters.set(key, value)
   })
   return convertParameters(parameters)
 }
