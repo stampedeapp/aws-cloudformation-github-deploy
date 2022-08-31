@@ -144,7 +144,7 @@ export async function deployStack(
     cfn,
     stack,
     {
-      ChangeSetName: `${params.StackName}-${changesetPostfix}`,
+      ChangeSetName: `${params.StackName}${changesetPostfix || '-CS'}`,
       ...{
         StackName: params.StackName,
         TemplateBody: params.TemplateBody,
