@@ -46,6 +46,9 @@ export async function run(): Promise<void> {
     const parameterOverrides = core.getInput('parameter-overrides', {
       required: false
     })
+    const changesetPostfix = core.getInput('changeset-postfix', {
+      required: false
+    })
     const noEmptyChangeSet = !!+core.getInput('no-fail-on-empty-changeset', {
       required: false
     })
@@ -127,7 +130,8 @@ export async function run(): Promise<void> {
       params,
       noEmptyChangeSet,
       noExecuteChageSet,
-      noDeleteFailedChangeSet
+      noDeleteFailedChangeSet,
+      changesetPostfix
     )
     core.setOutput('stack-id', stackId || 'UNKNOWN')
 
