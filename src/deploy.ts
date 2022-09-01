@@ -140,6 +140,8 @@ export async function deployStack(
     return stack.StackId
   }
 
+  core.debug(`Creating stack with postfix ${changesetPostfix}`)
+
   return await updateStack(
     cfn,
     stack,
