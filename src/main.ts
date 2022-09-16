@@ -139,7 +139,7 @@ export async function run(): Promise<void> {
       const outputs = await getStackOutputs(cfn, stackId)
       for (const [key, value] of outputs) {
         core.setOutput(key, value)
-        console.log(`> Output ${key}: ${value}`);
+        console.log(`> Output ${key}: ${value}`)
       }
     }
   } catch (err) {
