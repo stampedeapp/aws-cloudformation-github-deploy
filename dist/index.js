@@ -63047,8 +63047,7 @@ function parseParameters(parameterOverrides) {
     }
     // Case 3: Try YAML format (key: value) - legacy fork feature
     // Detect YAML if input contains colons but no equals signs
-    if (parameterOverrides.includes(':') &&
-        !parameterOverrides.includes('=')) {
+    if (parameterOverrides.includes(':') && !parameterOverrides.includes('=')) {
         try {
             const parsed = yaml.load(parameterOverrides);
             if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
@@ -63247,7 +63246,10 @@ const executeSchema = baseSchema.extend({
     'role-arn': zod_1.z.string().optional().transform(emptyToUndefined),
     tags: zod_1.z.string().optional().transform(emptyToUndefined),
     'termination-protection': zod_1.z.string().optional().transform(emptyToUndefined),
-    'no-fail-on-empty-changeset': zod_1.z.string().optional().transform(emptyToUndefined),
+    'no-fail-on-empty-changeset': zod_1.z
+        .string()
+        .optional()
+        .transform(emptyToUndefined),
     'change-set-name': zod_1.z.string().optional().transform(emptyToUndefined),
     'changeset-postfix': zod_1.z.string().optional().transform(emptyToUndefined),
     'include-nested-stacks-change-set': zod_1.z
